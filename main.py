@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import requests
+import selectorlib
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+URL = "http://programmer100.pythonanywhere.com/tours/"
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+}
+
+def scrape(url):
+    """
+    Scrape the page source using the URL
+    """
+    response = requests.get(url, headers=HEADERS)
+    source = response.text
+
+    return source
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+if __name__ == "__main__":
+    print(scrape(URL))
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('HD')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
