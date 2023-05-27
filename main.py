@@ -1,3 +1,6 @@
+import smtplib
+import ssl
+
 import requests
 import selectorlib
 
@@ -23,8 +26,19 @@ def extract(source):
     return value
 
 
-def send_email():
-    print("email sent!")
+def send_email(message):
+    host = "smtp.gmail.com"
+    port = 465
+
+    username = "app8flask@gmail.com"
+    password = "here_goes_your_gmail_password"
+
+    receiver = "app8flask@gmail.com"
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL(host, port, context=context) as server:
+        server.login(username, password)
+        server.sendmail(username, receiver, message)
 
 def store(extracted):
     with open("data.txt", "a") as file:
@@ -42,7 +56,7 @@ if __name__ == "__main__":
     if extracted != "No upcoming tours":
         if extracted not in content:
             store(extracted)
-            send_email()
+            send_email(message="hey, a new event was schedule")
 
 
 
